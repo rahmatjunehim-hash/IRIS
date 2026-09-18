@@ -78,9 +78,9 @@ export default function Sidebar({ user, onNavClick }: SidebarProps) {
   );
 
   return (
-    <aside className="w-64 bg-emerald-950/95 backdrop-blur-2xl text-emerald-100 flex flex-col flex-shrink-0 min-h-screen border-r border-emerald-800/40 select-none shadow-apple-float z-20">
+    <aside className="w-64 bg-[#06261c] text-emerald-100 flex flex-col flex-shrink-0 min-h-screen border-r border-[#0c3e2f] select-none shadow-apple-float z-20">
       {/* Brand Header */}
-      <div className="p-5 border-b border-emerald-800/30">
+      <div className="p-5 border-b border-[#0c3e2f]">
         <div className="flex flex-col gap-1.5">
           <img
             src="/brand/logo-isy-white.png"
@@ -94,7 +94,7 @@ export default function Sidebar({ user, onNavClick }: SidebarProps) {
           />
         </div>
         <div className="mt-3 flex flex-col gap-1">
-          <span className="text-[10px] uppercase font-mono tracking-wider text-emerald-300/90 bg-white/[0.07] px-2.5 py-1 rounded-lg border border-white/[0.08] text-center leading-tight font-semibold">
+          <span className="text-[10px] uppercase font-mono tracking-wider text-emerald-200/90 bg-white/[0.07] px-2.5 py-1 rounded-lg border border-white/[0.08] text-center leading-tight font-semibold">
             IRIS — I See You Retail & Information System
           </span>
         </div>
@@ -102,7 +102,7 @@ export default function Sidebar({ user, onNavClick }: SidebarProps) {
 
       {/* Navigation List */}
       <nav className="flex-1 p-3.5 space-y-1 overflow-y-auto">
-        <div className="text-[10px] font-bold text-emerald-400/70 uppercase tracking-widest px-3 py-1.5 mb-1">
+        <div className="text-[10px] font-bold text-emerald-400/80 uppercase tracking-widest px-3 py-1.5 mb-1">
           {isSuperAdmin ? "Semua Modul Sistem" : "Modul Kerja Anda"}
         </div>
 
@@ -117,13 +117,13 @@ export default function Sidebar({ user, onNavClick }: SidebarProps) {
               onClick={onNavClick}
               className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 active:scale-[0.98] cursor-pointer ${
                 isActive
-                  ? "bg-white/[0.15] text-white shadow-apple-subtle border border-white/[0.12] font-semibold backdrop-blur-md"
-                  : "text-emerald-200/80 hover:bg-white/[0.06] hover:text-white"
+                  ? "bg-white/[0.14] text-white shadow-apple-subtle border border-white/[0.15] font-semibold backdrop-blur-md"
+                  : "text-emerald-100/75 hover:bg-white/[0.06] hover:text-white"
               }`}
             >
               <Icon
                 className={`w-4 h-4 flex-shrink-0 transition-colors ${
-                  isActive ? "text-emerald-300" : "text-emerald-400/80"
+                  isActive ? "text-emerald-300" : "text-emerald-400/90"
                 }`}
               />
               <span className="tracking-tight">{item.label}</span>
@@ -135,14 +135,14 @@ export default function Sidebar({ user, onNavClick }: SidebarProps) {
         })}
 
         {/* Public Screens Link for Staff Reference */}
-        <div className="pt-5 mt-5 border-t border-emerald-800/30">
-          <div className="text-[10px] font-bold text-emerald-400/70 uppercase tracking-widest px-3 py-1.5 mb-1">
+        <div className="pt-5 mt-5 border-t border-[#0c3e2f]">
+          <div className="text-[10px] font-bold text-emerald-400/80 uppercase tracking-widest px-3 py-1.5 mb-1">
             Layar Publik / Display
           </div>
           <Link
             href="/registrasi"
             target="_blank"
-            className="flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-medium text-emerald-300/80 hover:text-white hover:bg-white/[0.06] transition-all duration-150 active:scale-[0.98] cursor-pointer"
+            className="flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-medium text-emerald-200/80 hover:text-white hover:bg-white/[0.06] transition-all duration-150 active:scale-[0.98] cursor-pointer"
           >
             <ClipboardList className="w-4 h-4 text-emerald-400" />
             <span className="tracking-tight">Tablet Registrasi</span>
@@ -150,7 +150,7 @@ export default function Sidebar({ user, onNavClick }: SidebarProps) {
           <Link
             href={`/display/${user.cabangKode?.toLowerCase() || "purwokerto"}`}
             target="_blank"
-            className="flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-medium text-emerald-300/80 hover:text-white hover:bg-white/[0.06] transition-all duration-150 active:scale-[0.98] cursor-pointer"
+            className="flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-medium text-emerald-200/80 hover:text-white hover:bg-white/[0.06] transition-all duration-150 active:scale-[0.98] cursor-pointer"
           >
             <Tv className="w-4 h-4 text-emerald-400" />
             <span className="tracking-tight">Smart TV Antrian</span>
@@ -159,7 +159,7 @@ export default function Sidebar({ user, onNavClick }: SidebarProps) {
       </nav>
 
       {/* Footer info */}
-      <div className="p-3.5 border-t border-emerald-800/30 text-[11px] text-emerald-300/80 text-center font-medium tracking-tight">
+      <div className="p-3.5 border-t border-[#0c3e2f] text-[11px] text-emerald-200/75 text-center font-medium tracking-tight">
         Purwokerto • Cilacap • Wonosobo • Purbalingga
       </div>
     </aside>
