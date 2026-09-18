@@ -1,0 +1,239 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  KASIR
+  CEK_MATA
+  FASET
+  CS
+  AFTER_SALES
+  GUDANG
+}
+
+enum OrderStatus {
+  MENUNGGU_CEK_MATA
+  SEDANG_DIPERIKSA
+  MENUNGGU_TRANSAKSI
+  DALAM_FASET
+  SIAP_DIAMBIL
+  SELESAI
+}
+
+enum AntrianStatus {
+  MENUNGGU
+  DIPANGGIL
+  SELESAI
+}
+
+enum StatusFaset {
+  PENDING
+  PROSES
+  SELESAI
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+model Cabang {
+  id        String      @id @default(cuid())
+  kode      String      @unique // PWT, CLP, WSB, PBG
+  nama      String      // Purwokerto, Cilacap, Wonosobo, Purbalingga
+  alamat    String?
+  telepon   String?
+  isActive  Boolean     @default(true)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  users     User[]
+  orders    Order[]
+  eyeExams  EyeExam[]
+  lensStock LensStock[]
+
+  @@map("cabang")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  username     String    @unique
+  email        String?   @unique
+  passwordHash String
+  role         Role
+  cabangId     String?
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  cabang       Cabang?   @relation(fields: [cabangId], references: [id])
+  eyeExams     EyeExam[]
+  fasetJobs    OrderFaset[]
+  statusLogs   OrderStatusLog[]
+
+  @@map("users")
+}
+
+model Customer {
+  id           String      @id @default(cuid())
+  nama         String
+  noWa         String
+  alamat       String
+  tanggalLahir DateTime?
+  jenisKelamin String?     // L / P
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  orders       Order[]
+  eyeExams     EyeExam[]
+  notifications Notification[]
+
+  @@map("customers")
+}
+
+model Order {
+  id             String         @id @default(cuid())
+  noAntrian      Int            // Reset harian per cabang
+  tanggalAntrian DateTime       @default(now())
+  customerId     String
+  cabangId       String
+  
+  // Data produk/pesanan (TIDAK ADA HARGA)
+  frameModel     String?        // Model frame yang dipilih
+  frameColor     String?        // Warna frame
+  jenisLensa     String?        // Pilihan jenis lensa
+  catatanFrame   String?        // Catatan kasir mengenai frame
+  catatanKasir   String?        // Catatan umum kasir
+  noPosStruk     String?        // Referensi no struk di sistem POS luar (opsional)
+
+  // Status order & antrian
+  status         OrderStatus    @default(MENUNGGU_CEK_MATA)
+  statusAntrian  AntrianStatus  @default(MENUNGGU)
+  dipanggilAt    DateTime?
+
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  customer       Customer       @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  cabang         Cabang         @relation(fields: [cabangId], references: [id])
+  eyeExam        EyeExam?
+  orderFaset     OrderFaset?
+  notifications  Notification[]
+  statusLogs     OrderStatusLog[]
+
+  @@index([cabangId, tanggalAntrian])
+  @@index([status])
+  @@map("orders")
+}
+
+model EyeExam {
+  id         String    @id @default(cuid())
+  orderId    String    @unique
+  customerId String
+  examinerId String?
+  cabangId   String
+
+  // Resep Kanan (OD - Oculum Dextrum)
+  sphR       String?
+  cylR       String?
+  axisR      String?
+  addR       String?
+  pdR        String?
+
+  // Resep Kiri (OS - Oculum Sinistrum)
+  sphL       String?
+  cylL       String?
+  axisL      String?
+  addL       String?
+  pdL        String?
+
+  pdTotal    String?
+  catatan    String?
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  order      Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  customer   Customer  @relation(fields: [customerId], references: [id])
+  examiner   User?     @relation(fields: [examinerId], references: [id])
+  cabang     Cabang    @relation(fields: [cabangId], references: [id])
+
+  @@map("eye_exams")
+}
+
+model OrderFaset {
+  id             String      @id @default(cuid())
+  orderId        String      @unique
+  statusFaset    StatusFaset @default(PENDING) // Diset manual oleh kasir (pending/proses)
+  teknisiId      String?
+  catatanTeknisi String?
+  startedAt      DateTime?
+  completedAt    DateTime?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  order          Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  teknisi        User?       @relation(fields: [teknisiId], references: [id])
+
+  @@index([statusFaset])
+  @@map("order_faset")
+}
+
+model LensStock {
+  id         String   @id @default(cuid())
+  cabangId   String   // Wajib dikelola per cabang!
+  jenisLensa String   // misal: Single Vision CRMC, Blue Ray, Photochromic, Progressive
+  sph        String?
+  cyl        String?
+  stockQty   Int      @default(0)
+  minStock   Int      @default(5)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  cabang     Cabang   @relation(fields: [cabangId], references: [id], onDelete: Cascade)
+
+  @@index([cabangId, jenisLensa])
+  @@map("lens_stock")
+}
+
+model Notification {
+  id         String             @id @default(cuid())
+  orderId    String
+  customerId String
+  noWa       String
+  pesan      String
+  status     NotificationStatus @default(PENDING)
+  fonnteId   String?
+  sentAt     DateTime?
+  createdAt  DateTime           @default(now())
+
+  order      Order              @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  customer   Customer           @relation(fields: [customerId], references: [id])
+
+  @@index([orderId])
+  @@map("notifications")
+}
+
+model OrderStatusLog {
+  id         String   @id @default(cuid())
+  orderId    String
+  userId     String?
+  oldStatus  String?
+  newStatus  String
+  catatan    String?
+  createdAt  DateTime @default(now())
+
+  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  user       User?    @relation(fields: [userId], references: [id])
+
+  @@index([orderId])
+  @@map("order_status_logs")
+}

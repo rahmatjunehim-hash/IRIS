@@ -1,0 +1,26 @@
+﻿# Cursor / Assistant Rules: Anti-AI Slop & Apple/iOS Design System
+# Applied to IRIS & Universal Projects
+
+# 1. CORE DESIGN PHILOSOPHY
+- You MUST adhere strictly to the guidelines defined in ANTI_AI_SLOP.md.
+- Adopt Apple / iOS 18 / macOS Sequoia design language:
+  - Frosted glass materials (backdrop-blur-xl, translucent surfaces).
+  - Continuous squircles (rounded-2xl, rounded-3xl).
+  - Subtle 1px borders (border-black/[0.06] or border-white/[0.1]).
+  - Multi-stop ambient shadows, never muddy pitch-black shadows.
+  - Apple-style segmented controls for filters and tabs.
+  - Tactile micro-interactions (active:scale-[0.98] transition-all duration-150).
+  - Clean San Francisco / Inter typography with tabular numbers (font-mono tabular-nums).
+
+# 2. PROHIBITED AI TROPES (NEVER DO THIS)
+- NO purple-pink AI gradients (from-purple-600 to-pink-500).
+- NO random blur blobs without lighting purpose.
+- NO ungrounded buzzwords ("Revolutionary", "Next-gen AI", "Seamlessly").
+- NO generic 3-column cards with random Lucide icons in pastel circles.
+- NO lazy TypeScript 'any'.
+- NO missing active, hover, focus, or empty states.
+
+# 3. CODE QUALITY
+- Strict TypeScript: Full type definitions for all props, states, and API responses.
+- Resilient error handling with clear user-facing messages.
+- Lightweight, zero heavy npm animation bloat.
