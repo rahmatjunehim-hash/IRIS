@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
@@ -11,6 +11,14 @@ const playfair = Playfair_Display({
   variable: "--font-serif",
   subsets: ["latin"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: "cover",
+  themeColor: "#064E3B",
+};
 
 export const metadata: Metadata = {
   title: "IRIS — Optik I See You Retail & Information System",

@@ -2,15 +2,16 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { LogOut, MapPin, User, ShieldCheck, Loader2 } from "lucide-react";
+import { LogOut, MapPin, User, ShieldCheck, Loader2, Menu } from "lucide-react";
 import { SessionUser } from "@/lib/auth";
 import { ROLE_NAMES } from "@/lib/constants";
 
 interface HeaderProps {
   user: SessionUser;
+  onOpenMobileMenu?: () => void;
 }
 
-export default function Header({ user }: HeaderProps) {
+export default function Header({ user, onOpenMobileMenu }: HeaderProps) {
   const router = useRouter();
   const [loggingOut, setLoggingOut] = useState(false);
 
@@ -26,12 +27,21 @@ export default function Header({ user }: HeaderProps) {
   }
 
   return (
-    <header className="h-16 bg-white/75 backdrop-blur-xl border-b border-black/[0.06] px-6 flex items-center justify-between sticky top-0 z-30 shadow-apple-subtle">
-      {/* Left: Role title & Branch Context */}
-      <div className="flex items-center gap-3">
+    <header className="h-16 bg-white/80 backdrop-blur-xl border-b border-black/[0.06] px-3.5 sm:px-6 flex items-center justify-between sticky top-0 z-30 shadow-apple-subtle">
+      {/* Left: Hamburger Button (Mobile) + Role title & Branch Context */}
+      <div className="flex items-center gap-2.5 sm:gap-3">
+        {onOpenMobileMenu && (
+          <button
+            onClick={onOpenMobileMenu}
+            aria-label="Buka Menu"
+            className="lg:hidden p-2 rounded-xl bg-black/[0.04] hover:bg-black/[0.08] text-slate-700 active:scale-95 transition-all cursor-pointer"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+        )}
         <div>
-          <div className="flex items-center gap-2">
-            <h1 className="text-sm md:text-base font-semibold text-slate-900 tracking-tight">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <h1 className="text-xs sm:text-sm md:text-base font-semibold text-slate-900 tracking-tight">
               {ROLE_NAMES[user.role] || user.role}
             </h1>
             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-emerald-500/10 text-emerald-800 border border-emerald-500/20 shadow-apple-subtle">

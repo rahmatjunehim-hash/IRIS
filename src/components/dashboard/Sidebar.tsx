@@ -19,9 +19,10 @@ import { SessionUser } from "@/lib/auth";
 
 interface SidebarProps {
   user: SessionUser;
+  onNavClick?: () => void;
 }
 
-export default function Sidebar({ user }: SidebarProps) {
+export default function Sidebar({ user, onNavClick }: SidebarProps) {
   const pathname = usePathname();
 
   // Define navigation items
@@ -113,6 +114,7 @@ export default function Sidebar({ user }: SidebarProps) {
             <Link
               key={item.href}
               href={item.href}
+              onClick={onNavClick}
               className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 active:scale-[0.98] cursor-pointer ${
                 isActive
                   ? "bg-white/[0.15] text-white shadow-apple-subtle border border-white/[0.12] font-semibold backdrop-blur-md"
