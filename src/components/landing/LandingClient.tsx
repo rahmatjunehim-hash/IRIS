@@ -733,13 +733,39 @@ export default function LandingClient() {
 
       {/* Footer */}
       <footer className="max-w-7xl mx-auto px-4 sm:px-6 py-8 border-t border-emerald-900/10 mt-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-emerald-900/60 font-medium">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-emerald-900/70 font-medium">
+          {/* Brand Info */}
           <div className="flex items-center gap-2">
             <span className="font-bold text-emerald-950">Optik I See You</span>
             <span>•</span>
             <span>IRIS — I See You Retail & Information System</span>
           </div>
 
+          {/* Product by Badge ala Raf Dev / Portfolio Badge */}
+          <div className="flex items-center gap-2 text-xs text-emerald-900/60">
+            <span>Product by</span>
+            <a
+              href="https://yossikaputra.my.id/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/[0.04] hover:bg-emerald-950/[0.08] border border-emerald-900/15 text-emerald-950 font-semibold transition-all hover:scale-[1.03] shadow-apple-subtle group"
+              title="Kunjungi Portfolio Yossika Putra"
+            >
+              <img
+                src="/brand/yossika.webp"
+                alt="Yossika Putra"
+                className="w-5 h-5 rounded-full object-cover ring-1 ring-emerald-600/30"
+              />
+              <span className="tracking-tight font-bold text-emerald-950 group-hover:text-emerald-700 transition-colors">
+                Yossika Putra
+              </span>
+              <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded-full bg-emerald-800 text-white leading-none">
+                Portfolio ↗
+              </span>
+            </a>
+          </div>
+
+          {/* Navigation Links */}
           <div className="flex items-center gap-4">
             <img
               src="/brand/logo-for-every-you.png"

@@ -158,9 +158,28 @@ export default function Sidebar({ user, onNavClick }: SidebarProps) {
         </div>
       </nav>
 
-      {/* Footer info */}
-      <div className="p-3.5 border-t border-[#0c3e2f] text-[11px] text-emerald-200/75 text-center font-medium tracking-tight">
-        Purwokerto • Cilacap • Wonosobo • Purbalingga
+      {/* Footer info & Creator attribution */}
+      <div className="p-3.5 border-t border-[#0c3e2f] flex flex-col items-center gap-2">
+        <div className="text-[11px] text-emerald-200/75 text-center font-medium tracking-tight">
+          Purwokerto • Cilacap • Wonosobo • Purbalingga
+        </div>
+        <div className="flex items-center gap-1.5 text-[10px] text-emerald-300/60 pt-0.5">
+          <span>Product by</span>
+          <a
+            href="https://yossikaputra.my.id/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/[0.1] text-emerald-100 font-medium transition-all"
+            title="Portfolio Yossika Putra"
+          >
+            <img
+              src="/brand/yossika.webp"
+              alt="Yossika Putra"
+              className="w-3.5 h-3.5 rounded-full object-cover ring-1 ring-emerald-400/40"
+            />
+            <span>Yossika Putra</span>
+          </a>
+        </div>
       </div>
     </aside>
   );

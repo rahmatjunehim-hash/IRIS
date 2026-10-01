@@ -231,21 +231,40 @@ export default function LoginPage() {
           <LoginForm />
         </Suspense>
 
-        {/* Public Links Footer */}
-        <div className="mt-6 text-center space-x-4 text-xs font-semibold text-emerald-900/60">
-          <a
-            href="/registrasi"
-            className="hover:text-emerald-950 transition-colors"
-          >
-            Tablet Registrasi Customer
-          </a>
-          <span>•</span>
-          <a
-            href="/display/purwokerto"
-            className="hover:text-emerald-950 transition-colors"
-          >
-            Layar Smart TV Purwokerto
-          </a>
+        {/* Public Links Footer & Attribution */}
+        <div className="mt-6 flex flex-col items-center gap-3 text-xs font-semibold text-emerald-900/60">
+          <div className="flex items-center gap-3">
+            <a
+              href="/registrasi"
+              className="hover:text-emerald-950 transition-colors"
+            >
+              Tablet Registrasi Customer
+            </a>
+            <span>•</span>
+            <a
+              href="/display/purwokerto"
+              className="hover:text-emerald-950 transition-colors"
+            >
+              Layar Smart TV Purwokerto
+            </a>
+          </div>
+
+          <div className="flex items-center gap-1.5 text-[11px] text-emerald-900/60 pt-1">
+            <span>Product by</span>
+            <a
+              href="https://yossikaputra.my.id/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-950/[0.04] hover:bg-emerald-950/[0.08] border border-emerald-900/10 text-emerald-950 font-bold transition-all hover:scale-105"
+            >
+              <img
+                src="/brand/yossika.webp"
+                alt="Yossika Putra"
+                className="w-4 h-4 rounded-full object-cover ring-1 ring-emerald-600/30"
+              />
+              <span>Yossika Putra</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>

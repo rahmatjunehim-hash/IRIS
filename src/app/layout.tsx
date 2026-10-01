@@ -23,6 +23,13 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "IRIS — Optik I See You Retail & Information System",
   description: "Sistem Manajemen Internal Optik I See You (Purwokerto, Cilacap, Wonosobo, Purbalingga)",
+  icons: {
+    icon: [
+      { url: "/brand/logo-isy-dark.png", type: "image/png" },
+    ],
+    shortcut: "/brand/logo-isy-dark.png",
+    apple: "/brand/logo-isy-dark.png",
+  },
 };
 
 export default function RootLayout({
